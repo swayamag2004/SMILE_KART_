@@ -1,0 +1,28 @@
+.pricing{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    width: 370px;
+    height: 170px;
+    gap: 18px;
+    justify-content: center;
+    align-content: center;
+  }
+  .adj{
+    display: flex;
+    gap: 200px;
+  }
+  button{
+    height: 30px;
+    width: 50%;
+    border-radius: 13px;
+    background-color: blue;
+    color: white;
+    margin-left: 25%;
+  }
+  p{
+    margin: 0px;
+    padding: 2px;
+  
+  }
+  

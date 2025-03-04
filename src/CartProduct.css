@@ -1,0 +1,41 @@
+.prod{
+    height: 130px;
+    width: 450px;
+    border: 1px solid black;
+    display: flex;
+    gap: 20px;
+  } 
+  img{
+    height: 120px;
+    width: auto;
+    align-items: center;
+  }
+  .desc{
+    height: 100px;
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  p{
+    margin: 0px;
+    padding: 0px;
+  }
+  .quan{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+  .quan img{
+    height: 20px;
+    width: 20px;
+  }
+  button{
+    height: 20px;
+  }
+  .butt{
+    display: flex;
+    gap: 2px;
+  }
+  
