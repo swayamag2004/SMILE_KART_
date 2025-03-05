@@ -1,22 +1,30 @@
 import { Left, Right } from "neetoicons";
 import { Button } from "neetoui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRef } from "react";
 import "./Carousel.css";
 
 const Carousel = ({ imageUrls ,title}) => {
+  const timerRef=useRef(null);
   const [currentIndex,setCurrentIndex]=useState(0);
   const handleNext=()=>{
-    const nextIndex=(currentIndex+1)%imageUrls.length;
-    setCurrentIndex(nextIndex);
+    setCurrentIndex(currentIndex=>(currentIndex+1)%imageUrls.length);
   }
+  useEffect(()=>{
+    timerRef.current=setInterval(handleNext,3000);
+   return ()=>{
+     clearInterval(timerRef.current);
+   }
+ },[]);
+ const resetTimer=()=>{
+   clearInterval(timerRef.current);
+   timerRef.current=setInterval(handleNext,3000);
+ }
   const handlePrev=()=>{
-    const prevIndex=(currentIndex-1+imageUrls.length)%imageUrls.length;
-    setCurrentIndex(prevIndex);
+    setCurrentIndex(currentIndex=>(currentIndex-1+imageUrls.length)%imageUrls.length);
+    resetTimer();
   }
-  function handleClick(e){
-    const index=e;
-    setCurrentIndex(index);
-  }
+ 
 return <div>
   <div className="flex items-center">
     <Button
@@ -38,7 +46,7 @@ return <div>
       className="shrink-0 focus-within:ring-0 hover:bg-transparent"
       icon={Right}
       style="text"
-      onClick={handleNext}
+      onClick={()=>{handleNext(),resetTimer()}}
     />
    
   </div>
