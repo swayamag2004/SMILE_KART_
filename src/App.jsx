@@ -1,6 +1,8 @@
 import "./App.css";
+import { Button } from "neetoui";
 // eslint-disable-next-line import/extensions
 import logo from "./logo.svg";
+import Product from "./Components/Product"
 const list=[
   {
     "id": 1,
@@ -98,22 +100,7 @@ const list=[
 
 const App = () => (  
  <div className="App">
-    <header className="App-header">
-      <img alt="logo" className="App-logo" src={logo} />
-      <b>
-         SMILECART-"ONE PLACE FOR ALL"
-      </b>
-       <br />
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        GET STARTED
-      </a>
-    </header>
-       
+  <Product/>
   </div>
 );
 

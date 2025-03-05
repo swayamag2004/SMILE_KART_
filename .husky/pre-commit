@@ -3,3 +3,4 @@
 . "$(dirname "$0")/helpers/lint_staged.sh"
 
 lint_staged_files
+yarn lint-staged

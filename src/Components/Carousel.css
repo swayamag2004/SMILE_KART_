@@ -1,0 +1,13 @@
+.align{
+    display: flex;
+    justify-content: space-around;
+}
+.circle{
+    height: 10px;
+    border: 1px solid black;
+    width: 10px;
+    border-radius: 100px;
+}
+.bb{
+    background-color: black;
+}
