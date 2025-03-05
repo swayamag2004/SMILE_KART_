@@ -6,6 +6,7 @@ import { IMAGE_URLS } from "./Constants";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { isNotNil,append } from "ramda";
+import productsApi from "apis/product";
 
 
 const Product = () => {
@@ -13,7 +14,7 @@ const Product = () => {
   const [product,setProduct]=useState({});
   const fetchData=async ()=>{
   try{
-    const response=await axios.get("https://smile-cart-backend-staging.neetodeployapp.com/products/infinix-inbook-2");
+    const response=await productsApi.show();
     setProduct(response.data);
   } catch(error){
     console.log("Error occured ",error);
