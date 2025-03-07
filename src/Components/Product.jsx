@@ -15,7 +15,7 @@ const Product = () => {
   const fetchData=async ()=>{
   try{
     const response=await productsApi.show();
-    setProduct(response.data);
+    setProduct(response);
   } catch(error){
     console.log("Error occured ",error);
   } finally{
@@ -25,8 +25,8 @@ const Product = () => {
 useEffect(()=>{
   fetchData();
 },[]);
-const {name,mrp,offer_price,description,image_url,image_urls}=product;
-const discount=mrp-offer_price;
+const { name, description, mrp, offerPrice, imageUrls, imageUrl}=product;
+const discount=mrp-offerPrice;
 const discountPercentage=((discount/mrp)*100).toFixed(1);
 if(isLoading){
   return (
@@ -42,10 +42,10 @@ if(isLoading){
     </div>
     <div className="flex gap-4 mt-6">
       <div className="w-2/5">
-       {isNotNil(image_urls)?(
-         <Carousel title={name} imageUrls={append(image_url,image_urls)}/>
+       {isNotNil(imageUrls)?(
+         <Carousel title={name} imageUrls={append(imageUrl,imageUrls)}/>
        ):(
-        <img alt={name} className="w-48" src={image_url} />
+        <img alt={name} className="w-48" src={imageUrl} />
        )}
         
       </div>
@@ -54,7 +54,7 @@ if(isLoading){
           {description}
         </p>
         <p>MRP: ${mrp}</p>
-        <p className="font-semibold">Offer price: ${offer_price}</p>
+        <p className="font-semibold">Offer price: ${offerPrice}</p>
         <p className="font-semibold text-green-600">{discountPercentage}% off</p>
       </div>
     </div>

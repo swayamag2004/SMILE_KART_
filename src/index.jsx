@@ -5,11 +5,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import initializeAxios from "apis/axios";
+import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+initializeAxios();
 root.render(
   <React.StrictMode>
+    <BrowserRouter>
     <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
