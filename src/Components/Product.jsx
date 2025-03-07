@@ -1,22 +1,31 @@
 
 import "./product.css";
 import Carousel from "./Carousel";
+import {Typography} from "neetoui";
 import { Spinner } from "neetoui";
+import { Header, PageNotFound, PageLoader } from "./commons";
+import { LeftArrow } from "neetoicons";
 import { IMAGE_URLS } from "./Constants";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams,useHistory } from "react-router-dom";
 import { isNotNil,append } from "ramda";
 import productsApi from "apis/product";
 
 
+
 const Product = () => {
+  const { slug } =useParams();
+  const history=useHistory();
   const [isLoading,setIsLoading]=useState(true);
   const [product,setProduct]=useState({});
+  const [isError,setIsError]=useState(false);
   const fetchData=async ()=>{
   try{
-    const response=await productsApi.show();
+    const response=await productsApi.show(slug);
     setProduct(response);
   } catch(error){
+    setIsError(true);
     console.log("Error occured ",error);
   } finally{
     setIsLoading(false);
@@ -25,21 +34,13 @@ const Product = () => {
 useEffect(()=>{
   fetchData();
 },[]);
+if(isError)return <PageNotFound/>
 const { name, description, mrp, offerPrice, imageUrls, imageUrl}=product;
 const discount=mrp-offerPrice;
 const discountPercentage=((discount/mrp)*100).toFixed(1);
-if(isLoading){
-  return (
-    <div className="flex h-screen w-full items-center justify-center">
-      <Spinner />
-    </div>
-  );
-}
+if(isLoading) {return <PageLoader/>}
   return <div className="px-6 pb-6">
-    <div>
-      <p className="py-2 text-4xl font-semibold">{name}</p>
-      <hr className="border-2 border-black" />
-    </div>
+   <Header title={name}/>
     <div className="flex gap-4 mt-6">
       <div className="w-2/5">
        {isNotNil(imageUrls)?(
