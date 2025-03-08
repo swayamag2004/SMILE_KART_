@@ -1,17 +1,12 @@
 
 import "./product.css";
 import Carousel from "./Carousel";
-import {Typography} from "neetoui";
-import { Spinner } from "neetoui";
 import { Header, PageNotFound, PageLoader } from "./commons";
-import { LeftArrow } from "neetoicons";
-import { IMAGE_URLS } from "./Constants";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams,useHistory } from "react-router-dom";
 import { isNotNil,append } from "ramda";
 import productsApi from "apis/product";
-
+import AddtoCart from "./commons/AddToCart";
 
 
 const Product = () => {
@@ -57,7 +52,9 @@ if(isLoading) {return <PageLoader/>}
         <p>MRP: ${mrp}</p>
         <p className="font-semibold">Offer price: ${offerPrice}</p>
         <p className="font-semibold text-green-600">{discountPercentage}% off</p>
+        <AddtoCart {...{slug}}/>
       </div>
+      
     </div>
   </div>
 };
