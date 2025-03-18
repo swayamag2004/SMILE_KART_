@@ -7,11 +7,11 @@ import PageNotFound from "./Components/commons/PageNotFound";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import route from "routes";
 import { useState } from "react";
-import CartItemsContext from "./contexts/CartItemsContext";
+
 
 const App = () => {
   
-  const [cartItems,setCartItems]=useState([]);
+
   
   return (  
   <>
@@ -19,14 +19,12 @@ const App = () => {
   <NavLink to="/">Home</NavLink>
   <NavLink to="/product">Product</NavLink>
   </div> */}
-  <CartItemsContext.Provider value={[cartItems,setCartItems]}>
   <Switch>
   <Route exact component={ProductList} path={route.products.index}/>
   <Route exact component={Product} path={route.products.show}/>
   <Redirect exact from={route.root} to ={route.products.index}/>
   <Route  component={PageNotFound} path="*"/>
   </Switch>
-  </CartItemsContext.Provider>
   </>
 
 );

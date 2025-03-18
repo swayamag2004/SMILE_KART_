@@ -30,7 +30,7 @@ useEffect(()=>{
   fetchData();
 },[]);
 if(isError)return <PageNotFound/>
-const { name, description, mrp, offerPrice, imageUrls, imageUrl}=product;
+const { name, description, mrp, offerPrice, imageUrls, imageUrl,availableQuantity}=product;
 const discount=mrp-offerPrice;
 const discountPercentage=((discount/mrp)*100).toFixed(1);
 if(isLoading) {return <PageLoader/>}
@@ -52,7 +52,7 @@ if(isLoading) {return <PageLoader/>}
         <p>MRP: ${mrp}</p>
         <p className="font-semibold">Offer price: ${offerPrice}</p>
         <p className="font-semibold text-green-600">{discountPercentage}% off</p>
-        <AddtoCart {...{slug}}/>
+        <AddtoCart {...{availableQuantity,slug}}/>
       </div>
       
     </div>

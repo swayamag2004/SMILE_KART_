@@ -1,24 +1,21 @@
 import { useContext, useState } from "react";
 import { Button } from "neetoui";
-import CartItemsContext from "src/contexts/CartItemsContext";
+import { isNil, paths } from "ramda";
+import useCartItemsStore from "stores/useCartItemsStore";
 import { without } from "ramda";
-const AddtoCart=({ slug })=>{
-    const [cartItems,setCartItems]=useContext(CartItemsContext);
+import {shallow} from "zustand/shallow";
+import ProductQuantity from "./ProductQuantity";
+import useSelectedQuantity from "../hooks/useSelectedQuantity";
+const AddtoCart = ({ slug, availableQuantity }) => {
+  const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
     const handleClick=e=>{
         e.stopPropagation();
         e.preventDefault();
-        setCartItems(prevCartItems =>
-            prevCartItems.includes(slug)
-              ? without([slug], cartItems)
-              : [slug, ...cartItems]
-          );
+        setSelectedQuantity(1);
     };
-    return (
-        <Button
-        label={cartItems.includes(slug) ? "Remove from cart" : "Add to cart"}
-        size="large"
-        onClick={handleClick}
-      />
-    );
+    if (isNil(selectedQuantity)) {
+      return <Button label="Add to cart" size="large" onClick={handleClick} />;
+    }
+    return <ProductQuantity  {...{availableQuantity, slug }}/>;
 };
 export default AddtoCart;
