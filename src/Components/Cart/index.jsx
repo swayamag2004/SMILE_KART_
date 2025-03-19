@@ -13,6 +13,8 @@ import { Toastr } from "neetoui";
 import { MRP,OFFER_PRICE } from "../Constants";
 import { cartTotalOf } from "../utils";
 import PriceCard from "./PriceCard";
+import i18n from "src/common/i18n";
+import withTitle from "utils/withTitle";
 
 const Cart = () => {
     const [products, setProducts] = useState([]);
@@ -67,6 +69,7 @@ if (isEmpty(products)) {
 
     return (
     <>
+
       <Header title="My Cart" />
       <div className="mt-10 flex justify-center space-x-10">
         <div className="w-1/3 space-y-5">
@@ -85,4 +88,4 @@ if (isEmpty(products)) {
 
 };
 
-export default Cart;
+export default withTitle(Cart, i18n.t("cart.title"))
