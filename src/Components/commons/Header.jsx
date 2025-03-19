@@ -1,10 +1,12 @@
 import { LeftArrow } from "neetoicons";
 import { Typography } from "neetoui";
-import { useHistory } from "react-router-dom";
+import reactRouterDom, { useHistory } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useContext } from "react";
 import { keys } from "ramda";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 import useCartItemsStore from "stores/useCartItemsStore";
+import route from "routes";
 // imports
 
 const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
@@ -12,8 +14,9 @@ const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
   const cartItemsCount = useCartItemsStore(
     store => keys(store.cartItems).length
   );
+  console.log(route.cart);
   return (
-    <div className="m-2">
+    <div className="m-2"> 
       <div className="mx-6 mb-2 mt-6 flex items-end justify-between">
         <div className="flex items-center">
           {shouldShowBackButton && (
@@ -33,7 +36,9 @@ const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
               {cartItemsCount}
             </span>
           )}
-          <AiOutlineShoppingCart size="2rem" />
+        <Link to={route.cart}>
+        <AiOutlineShoppingCart size="2rem"/>
+        </Link>
         </div>
         </div>
       </div>

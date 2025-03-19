@@ -7,14 +7,16 @@ import { useParams,useHistory } from "react-router-dom";
 import { isNotNil,append } from "ramda";
 import productsApi from "apis/product";
 import AddtoCart from "./commons/AddToCart";
-
-
+import useSelectedQuantity from "./hooks/useSelectedQuantity";
+import { Button } from "neetoui";
+import route from "routes";
 const Product = () => {
   const { slug } =useParams();
   const history=useHistory();
   const [isLoading,setIsLoading]=useState(true);
   const [product,setProduct]=useState({});
   const [isError,setIsError]=useState(false);
+  const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
   const fetchData=async ()=>{
   try{
     const response=await productsApi.show(slug);
@@ -52,7 +54,16 @@ if(isLoading) {return <PageLoader/>}
         <p>MRP: ${mrp}</p>
         <p className="font-semibold">Offer price: ${offerPrice}</p>
         <p className="font-semibold text-green-600">{discountPercentage}% off</p>
-        <AddtoCart {...{availableQuantity,slug}}/>
+        <div className="flex space-x-10">
+            <AddtoCart {...{ availableQuantity, slug }} />
+            <Button
+              className="bg-neutral-800 hover:bg-neutral-950"
+              label="Buy now"
+              size="large"
+              to={route.checkout}
+              onClick={() => setSelectedQuantity(selectedQuantity || 1)}
+            />
+          </div>
       </div>
       
     </div>
