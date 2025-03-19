@@ -25,7 +25,10 @@ const ProductCard = ({
         <Typography style="body2">MRP: ${mrp}</Typography>
         <Typography style="body2">Offer price: ${offerPrice}</Typography>
       </div>
-      <div className="flex items-center space-x-2">
+  
+      
+    </div>
+    <div className="flex items-center space-x-2">
           <ProductQuantity {...{ availableQuantity, slug }} />
           <Delete
             className="cursor-pointer"
@@ -48,7 +51,6 @@ const ProductCard = ({
             }}
           />
         </div>
-    </div>
   </div> )
 };
 

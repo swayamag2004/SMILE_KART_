@@ -14,7 +14,6 @@ import { MRP,OFFER_PRICE } from "../Constants";
 import { cartTotalOf } from "../utils";
 import PriceCard from "./PriceCard";
 
-
 const Cart = () => {
     const [products, setProducts] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
