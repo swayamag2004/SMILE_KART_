@@ -1,3 +1,6 @@
 {
-    "helloWorld": "Hello World"
+    "buyNow": "Buy now",
+    "totalMrp": "Total MRP: <typography>${{mrp}}</typography>",
+     "totalDiscounts": "Total discounts: <span>${{discounts}} ({{discountPercentage}}%)</span>",
+  "offerPrice": "Total offer price: <span>${{offerPrice}}</span>"
   }
