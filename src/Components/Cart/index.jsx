@@ -15,44 +15,14 @@ import { cartTotalOf } from "../utils";
 import PriceCard from "./PriceCard";
 import i18n from "src/common/i18n";
 import withTitle from "utils/withTitle";
-
+import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
 const Cart = () => {
-    const [products, setProducts] = useState([]);
-const [isLoading, setIsLoading] = useState(true);
+  const slugs = useCartItemsStore(store => keys(store.cartItems));
+
+  const { data: products = [], isLoading } = useFetchCartProducts(slugs);
 const { cartItems, setSelectedQuantity } = useCartItemsStore();
 const totalMrp = cartTotalOf(products, MRP);
 const totalOfferPrice = cartTotalOf(products, OFFER_PRICE);
-    const slugs = keys(cartItems);
-  const fetchCartProducts = async () => {
-    try {
-      const responses = await Promise.all(
-        slugs.map(slug => productsApi.show(slug))
-      );
-      setProducts(responses);
-      responses.forEach(({ availableQuantity, name, slug }) => {
-        if (availableQuantity >= cartItems[slug]) return;
-  
-        setSelectedQuantity(slug, availableQuantity);
-        if (availableQuantity === 0) {
-          Toastr.error(
-            `${name} is no longer available and has been removed from cart`,
-            {
-              autoClose: 2000,
-            }
-          );
-        }
-      });
-    } catch (error) {
-      console.log("An error occurred:", error);
-    } finally{
-        setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCartProducts();
-  }, [cartItems]);
-
 
   if (isLoading) return <PageLoader />;
 
