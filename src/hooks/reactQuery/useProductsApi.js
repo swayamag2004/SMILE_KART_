@@ -11,4 +11,5 @@ export const useShowProduct = slug =>
     useQuery({
       queryKey: [QUERY_KEYS.PRODUCTS, params],
       queryFn: () => productsApi.fetch(params),
+      keepPreviousData: true,
     });

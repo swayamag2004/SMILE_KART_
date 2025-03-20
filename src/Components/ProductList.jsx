@@ -7,14 +7,21 @@ import { Search } from "neetoicons";
 import useDebounce from "hooks/useDebounce";
 import ProductListItem from "./ProductListItem";
 import { useFetchProducts } from "hooks/reactQuery/useProductsApi";
+import { DEFAULT_PAGE_INDEX,DEFAULT_PAGE_SIZE } from "./hooks/ProductListConstants";
+import { Pagination } from "neetoui";
 const ProductList = () => {
+  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_INDEX);
   const [searchKey, setSearchKey] = useState("");
   const debouncedSearchKey = useDebounce(searchKey);
-
-  const { data: { products = [] } = {}, isLoading } = useFetchProducts({
+  const productsParams = {
     searchTerm: debouncedSearchKey,
-  });
-  return <div className="flex flex-col">
+    page: currentPage,
+    pageSize: DEFAULT_PAGE_SIZE,
+  };
+
+  const { data: { products = [], totalProductsCount } = {}, isLoading } =
+    useFetchProducts(productsParams);
+  return (<div className="flex flex-col">
     <Header 
             title="Smile-Kart" 
           shouldShowBackButton={false}    
@@ -24,7 +31,9 @@ const ProductList = () => {
             prefix={<Search />}
             type="search"
             value={searchKey}
-            onChange={event => setSearchKey(event.target.value)}
+            onChange={event =>{ setSearchKey(event.target.value);
+              setCurrentPage(DEFAULT_PAGE_INDEX);}
+            }
           />
         }
         />
@@ -35,7 +44,15 @@ const ProductList = () => {
            
         ))}
       </div>
-  </div>
+      <div className="mb-5 self-end">
+      <Pagination
+        navigate={page => setCurrentPage(page)}
+        count={totalProductsCount}
+        pageNo={currentPage || DEFAULT_PAGE_INDEX}
+        pageSize={DEFAULT_PAGE_SIZE}
+      />
+    </div>
+  </div>);
 };
 
 export default ProductList;
