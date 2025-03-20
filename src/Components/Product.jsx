@@ -10,27 +10,14 @@ import AddtoCart from "./commons/AddToCart";
 import useSelectedQuantity from "./hooks/useSelectedQuantity";
 import { Button } from "neetoui";
 import route from "routes";
+import i18n from "src/common/i18n";
+import withTitle from "utils/withTitle";
+import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 const Product = () => {
   const { slug } =useParams();
   const history=useHistory();
-  const [isLoading,setIsLoading]=useState(true);
-  const [product,setProduct]=useState({});
-  const [isError,setIsError]=useState(false);
   const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
-  const fetchData=async ()=>{
-  try{
-    const response=await productsApi.show(slug);
-    setProduct(response);
-  } catch(error){
-    setIsError(true);
-    console.log("Error occured ",error);
-  } finally{
-    setIsLoading(false);
-  }
-};
-useEffect(()=>{
-  fetchData();
-},[]);
+  const { data: product = {}, isLoading, isError } = useShowProduct(slug);
 if(isError)return <PageNotFound/>
 const { name, description, mrp, offerPrice, imageUrls, imageUrl,availableQuantity}=product;
 const discount=mrp-offerPrice;
@@ -41,8 +28,9 @@ if(isLoading) {return <PageLoader/>}
     <div className="flex gap-4 mt-6">
       <div className="w-2/5">
        {isNotNil(imageUrls)?(
-         <Carousel title={name} imageUrls={append(imageUrl,imageUrls)}/>
+         <Carousel/>
        ):(
+        
         <img alt={name} className="w-48" src={imageUrl} />
        )}
         
@@ -70,4 +58,4 @@ if(isLoading) {return <PageLoader/>}
   </div>
 };
 
-export default Product;
+export default withTitle(Product,i18n.t("product"));

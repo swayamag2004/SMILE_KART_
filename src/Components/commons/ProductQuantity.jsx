@@ -8,10 +8,14 @@ import { shallow } from "zustand/shallow";
 import useSelectedQuantity from "../hooks/useSelectedQuantity";
 import { VALID_COUNT_REGEX } from "../Constants";
 import TooltipWrapper from "./TooltipWrapper";
-const ProductQuantity = ({ slug,availableQuantity}) => {
+import { useShowProduct } from "hooks/reactQuery/useProductsApi";
+const ProductQuantity = ({ slug}) => {
     const countInputFocus = useRef(null);
     const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
     const parsedSelectedQuantity = parseInt(selectedQuantity) || 0;
+    const { data: product = {} } = useShowProduct(slug);
+
+    const { availableQuantity } = product;
   const isNotValidQuantity = parsedSelectedQuantity >= availableQuantity;
     const handleSetCount = event => {
         const { value } = event.target;

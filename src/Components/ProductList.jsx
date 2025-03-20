@@ -6,33 +6,14 @@ import { Input } from "neetoui";
 import { Search } from "neetoicons";
 import useDebounce from "hooks/useDebounce";
 import ProductListItem from "./ProductListItem";
-
+import { useFetchProducts } from "hooks/reactQuery/useProductsApi";
 const ProductList = () => {
-  const [products,setProducts]=useState([]);
-  const [isLoading,setIsLoading]=useState(true);
   const [searchKey, setSearchKey] = useState("");
   const debouncedSearchKey = useDebounce(searchKey);
 
-  const fetchProducts=async ()=>{
-    try{
-      const{ products }= await productsApi.fetch({ searchTerm: debouncedSearchKey });
-      setProducts(products);
-    } catch(error){
-      console.log("some error occured",error);
-    }finally{
-      setIsLoading(false);
-    }
-  };
-  
-  useEffect(()=>{
-    fetchProducts();
-  },[]);
-  useEffect(()=>{
-    fetchProducts();
-  },[debouncedSearchKey]);
-   if(isLoading){
-    return  <PageLoader/>
-   }
+  const { data: { products = [] } = {}, isLoading } = useFetchProducts({
+    searchTerm: debouncedSearchKey,
+  });
   return <div className="flex flex-col">
     <Header 
             title="Smile-Kart" 

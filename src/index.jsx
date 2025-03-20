@@ -7,15 +7,18 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import initializeAxios from "apis/axios";
 import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
-
+import queryClient from "utils/queryClient";
+import { QueryClientProvider } from "react-query";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 initializeAxios();
 root.render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
     <ToastContainer />
     <App />
     </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
