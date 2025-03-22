@@ -1,8 +1,0 @@
-.prods{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    grid-template-rows: repeat(3, auto); /* 3 rows */
-    gap: 20px; /* Spacing between items */
-    width: 80%;
-    margin: auto;
-  }
