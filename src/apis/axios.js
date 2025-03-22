@@ -2,6 +2,11 @@ import axios from "axios";
 import {keysToCamelCase} from "neetocist";
 import { serializeKeysToSnakeCase } from "neetocist";
 import { evolve } from "ramda";
+import { t } from "i18next";
+import { Toastr } from "neetoui";
+
+
+
 
 const requestInterceptors = () => {
   axios.interceptors.request.use(request =>
@@ -22,11 +27,37 @@ const setHttpHeaders=()=>{
     };
 };
 
-const responseInterceptors = () => {
-  axios.interceptors.response.use(response => {
-    transformKeys(response);
-    return response.data
+const shouldShowToastr = response =>
+  typeof response === "object" && response?.noticeCode;
+
+const showSuccessToastr = response => {
+  if (shouldShowToastr(response.data)) Toastr.success(response.data);
+};
+
+const showErrorToastr = error => {
+  if (error.message === t("error.networkError")) {
+    Toastr.error(t("error.noInternetConnection"));
+  } else if (error.response?.status !== 404) {
+    Toastr.error(error);
   }
+};
+const transformResponseKeysToCamelCase = response => {
+  if (response.data) response.data = keysToCamelCase(response.data);
+};
+
+const responseInterceptors = () => {
+  axios.interceptors.response.use(
+    response => {
+      transformResponseKeysToCamelCase(response);
+      showSuccessToastr(response);
+
+      return response.data;
+    },
+    error => {
+      showErrorToastr(error);
+
+      return Promise.reject(error);
+    }
   );
 };
 

@@ -7,7 +7,11 @@ import useCartItemsStore from "stores/useCartItemsStore";
 import { Toastr } from "neetoui";
 import { prop } from "ramda";
 import { existsBy } from "neetocist";
+
+
+
 export const useShowProduct = slug =>
+
   useQuery({
     queryKey: [QUERY_KEYS.PRODUCTS, slug],
     queryFn: () => productsApi.show(slug),
