@@ -7,6 +7,7 @@ import { keys } from "ramda";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import useCartItemsStore from "stores/useCartItemsStore";
 import route from "routes";
+import { memo } from "react";
 // imports
 
 const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
@@ -47,4 +48,4 @@ const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
   );
 };
 
-export default Header;
+export default memo(Header);

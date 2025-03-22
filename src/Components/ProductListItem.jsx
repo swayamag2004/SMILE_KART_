@@ -3,6 +3,7 @@ import routes from "routes";
 import { buildUrl } from "utils/url";
 import AddtoCart from "./commons/AddToCart";
 import { Typography } from "neetoui";
+import { memo } from "react";
 
 const ProductListItem = ({ imageUrl, name, offerPrice,slug,availableQuantity}) => (
     <Link
@@ -19,4 +20,4 @@ const ProductListItem = ({ imageUrl, name, offerPrice,slug,availableQuantity}) =
     </Link>
   );
 
-export default ProductListItem;
+export default memo(ProductListItem);

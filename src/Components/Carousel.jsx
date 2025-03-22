@@ -6,6 +6,7 @@ import "./Carousel.css";
 import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 import { useParams } from "react-router-dom";
 import { append } from "ramda";
+import { memo } from "react";
 
 const Carousel = () => {
   const timerRef=useRef(null);
@@ -63,4 +64,4 @@ return <div>
   
 };
 
-export default Carousel;
+export default memo(Carousel);

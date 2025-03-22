@@ -6,6 +6,7 @@ import useCartItemsStore from "stores/useCartItemsStore";
 import { Button } from "neetoui";
 import { Trans } from "react-i18next";
 import route from "routes";
+import { memo } from "react";
 const PriceCard = ({ totalMrp, totalOfferPrice }) => {
     const { t }=useTranslation();
   const totalDiscounts = totalMrp - totalOfferPrice;
@@ -58,4 +59,4 @@ const PriceCard = ({ totalMrp, totalOfferPrice }) => {
     </div>
   );
 };
-export default PriceCard;
+export default memo(PriceCard);

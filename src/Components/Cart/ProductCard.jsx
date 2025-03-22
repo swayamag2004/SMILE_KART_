@@ -5,6 +5,7 @@ import { useState } from "react";
 import useCartItemsStore from "stores/useCartItemsStore";
 import { Delete } from "neetoicons";
 import { Alert } from "neetoui";
+import { memo } from "react";
 const ProductCard = ({
   slug,
   imageUrl,
@@ -54,4 +55,4 @@ const ProductCard = ({
   </div> )
 };
 
-export default ProductCard;
+export default memo(ProductCard);
